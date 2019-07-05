@@ -35,6 +35,7 @@ namespace iCategory.Controllers
             
         }
 
+        [HttpPost]
         public ActionResult Filter()
         {
             var check = Request.Form.Get("select");

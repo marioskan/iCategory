@@ -5,15 +5,16 @@
 }
 
 <h2>Index</h2>
-<form>
+@using (Html.BeginForm("Filter", "ViewProducts", FormMethod.Post))
+    {
     <select name="select">
         @foreach (var x in ViewBag.Names)
         {
             <option value=@x>@x</option>
         }
     </select>
-    <input type="button" value="Filter" onclick="location.href='@Url.Action("Filter", "ViewProducts")'" />
-</form>
+    <input type="submit" value="Filter" />
+}
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>

@@ -1,17 +1,20 @@
 ﻿@model IEnumerable<iCategory.Models.Product>
 
-<h1>@ViewBag.Check</h1>
+@{
+    ViewBag.Title = "Index";
+}
 
-
-
-<select name="select">
-    @foreach (var x in ViewBag.Names)
-    {
-        <option value=@x>@x</option>
-    }
-</select>
-
-<input type="button" value="Filter" onclick="location.href='@Url.Action("Filter", "ViewProducts")'" />
+<h2>Index</h2>
+@using (Html.BeginForm("Filter", "ViewProducts", FormMethod.Post))
+{
+    <select name="select">
+        @foreach (var x in ViewBag.Names)
+        {
+            <option value=@x>@x</option>
+        }
+    </select>
+    <input type="submit" value="Filter" />
+}
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
@@ -60,5 +63,4 @@
             </td>
         </tr>
     }
-
 </table>
