@@ -1,0 +1,38 @@
+﻿@model iCategory.Models.Product
+
+@{
+    ViewBag.Title= "Add Product";
+}
+
+
+@using (Html.BeginForm("Save", "AddProduct", FormMethod.Post))
+{
+<form>
+    <table>
+        <tr>
+            <td>Product Name: </td>
+            <td>@Html.TextBoxFor(m => m.Name)</td>
+        </tr>
+        <tr>
+            <td>Product Price: </td>
+            <td>@Html.TextBoxFor(m => m.Price)</td>
+        </tr>     
+            <tr>
+                <td>
+                    <select name="select">
+                        @foreach(var x in ViewBag.Names)
+                        {
+                            <option value=@x>@x</option>
+                        }
+                    </select>
+                </td>
+            </tr>
+        <tr>
+            <td>
+            <input type="submit" value="Add" />
+            </td>
+        </tr>
+    </table>
+</form>
+}
+

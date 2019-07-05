@@ -52,12 +52,21 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -188,15 +197,48 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AddCategoryController.cs" />
+    <Compile Include="Controllers\AddProductController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ViewProductsController.cs" />
+    <Compile Include="DAL\MyContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="MigrationsIdentity\201907050943429_Initial.cs" />
+    <Compile Include="MigrationsIdentity\201907050943429_Initial.Designer.cs">
+      <DependentUpon>201907050943429_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MigrationsIdentity\Configuration.cs" />
+    <Compile Include="Migrations\201907050911562_Initial.cs" />
+    <Compile Include="Migrations\201907050911562_Initial.Designer.cs">
+      <DependentUpon>201907050911562_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907051048231_Initial2.cs" />
+    <Compile Include="Migrations\201907051048231_Initial2.Designer.cs">
+      <DependentUpon>201907051048231_Initial2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907051103498_Initial3.cs" />
+    <Compile Include="Migrations\201907051103498_Initial3.Designer.cs">
+      <DependentUpon>201907051103498_Initial3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907051155429_Initial5.cs" />
+    <Compile Include="Migrations\201907051155429_Initial5.Designer.cs">
+      <DependentUpon>201907051155429_Initial5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907051220369_Initial51.cs" />
+    <Compile Include="Migrations\201907051220369_Initial51.Designer.cs">
+      <DependentUpon>201907051220369_Initial51.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Category.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -257,6 +299,14 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\AddProduct\Index.cshtml" />
+    <Content Include="Views\AddCategory\Index.cshtml" />
+    <Content Include="Views\ViewProducts\Index.cshtml" />
+    <Content Include="Views\ViewProducts\Create.cshtml" />
+    <Content Include="Views\ViewProducts\Delete.cshtml" />
+    <Content Include="Views\ViewProducts\Details.cshtml" />
+    <Content Include="Views\ViewProducts\Edit.cshtml" />
+    <Content Include="Views\ViewProducts\Filter.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -275,6 +325,26 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MigrationsIdentity\201907050943429_Initial.resx">
+      <DependentUpon>201907050943429_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907050911562_Initial.resx">
+      <DependentUpon>201907050911562_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907051048231_Initial2.resx">
+      <DependentUpon>201907051048231_Initial2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907051103498_Initial3.resx">
+      <DependentUpon>201907051103498_Initial3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907051155429_Initial5.resx">
+      <DependentUpon>201907051155429_Initial5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907051220369_Initial51.resx">
+      <DependentUpon>201907051220369_Initial51.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

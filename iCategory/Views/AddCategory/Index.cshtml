@@ -1,0 +1,20 @@
+﻿@model iCategory.Models.Category
+@{
+    ViewBag.Title = "Add Product Category";
+}
+
+@using (Html.BeginForm("Save", "AddCategory", FormMethod.Post))
+{
+    <form>
+        <table>
+            <tr>
+                <td>Category Name:</td>
+                <td>@Html.TextBoxFor(m => m.CategoryName)</td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="Add" /></td>
+            </tr>
+        </table>
+    </form>
+}
+
