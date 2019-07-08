@@ -2,11 +2,12 @@
 using iCategory.Models;
 using Microsoft.AspNet.Identity;
 using System;
-using System.Collections.Generic;
+using iCategory.ViewModels;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
+using System.Collections.Generic;
 
 namespace iCategory.Controllers
 {
@@ -15,18 +16,25 @@ namespace iCategory.Controllers
         [Authorize]
         public ActionResult Index()
         {
+
+            //List<CategoryProductViewModel> VmList = new List<CategoryProductViewModel>();
             var username = User.Identity.GetUserName();
             try
             {
                 MyContext db = new MyContext();
-
-                ViewBag.Names = db.CategoryList.Where(m => m.UserName == username).Select(m=> m.CategoryName).ToList();
+                var CategoryNames = db.CategoryList.Where(m => m.UserName == username).Select(m=> m.CategoryName).ToList();
+                CategoryProductViewModel Vm = new CategoryProductViewModel();
+                foreach (var CategoryName in CategoryNames)
+                {                  
+                    Vm.Cnames.Add(CategoryName);                   
+                }
+                return View(Vm);
             }
             catch(Exception ex)
             {
                 throw ex;
             }
-            return View();
+           // return View();
         }
 
         public ActionResult Save(Product m)
@@ -37,11 +45,13 @@ namespace iCategory.Controllers
                 
                 MyContext db = new MyContext();
                 Product p = new Product();
+                string check = Request.Form.Get("select");
+                var catid = db.CategoryList.Where(c => c.CategoryName.Equals(check)).Select(c => c.ID).Single();              
                 p.Name = m.Name;
                 p.UserName = username;
                 p.Price = m.Price;
                 p.Date = DateTime.Now;
-                p.CategoryId = Request.Form.Get("select");
+                p.CategoryId = catid;
                 db.ProductList.Add(p);
                 db.SaveChanges();
             }

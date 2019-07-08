@@ -1,4 +1,4 @@
-﻿@model iCategory.Models.Product
+﻿@model iCategory.ViewModels.CategoryProductViewModel
 
 @{
     ViewBag.Title= "Add Product";
@@ -11,7 +11,7 @@
     <table>
         <tr>
             <td>Product Name: </td>
-            <td>@Html.TextBoxFor(m => m.Name)</td>
+            <td>@Html.TextBoxFor(m=> m.Name)</td>
         </tr>
         <tr>
             <td>Product Price: </td>
@@ -20,9 +20,9 @@
             <tr>
                 <td>
                     <select name="select">
-                        @foreach(var x in ViewBag.Names)
+                        @foreach(var categoryName in Model.Cnames)
                         {
-                            <option value=@x>@x</option>
+                            <option value=@categoryName>@categoryName</option>
                         }
                     </select>
                 </td>

@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using iCategory.DAL;
 using iCategory.Models;
 using Microsoft.AspNet.Identity;
+using iCategory.ViewModels;
 
 namespace iCategory.Controllers
 {
@@ -24,9 +25,19 @@ namespace iCategory.Controllers
             {
                 MyContext db = new MyContext();
                 var username = User.Identity.GetUserName();
-                ViewBag.Names = db.CategoryList.Where(m => m.UserName == username).Select(m => m.CategoryName).ToList();
+                var CategoryNames = db.CategoryList.Where(m => m.UserName == username).Select(m => m.CategoryName).ToList();
+                CategoryProductViewModel Vm = new CategoryProductViewModel();
+                foreach (var CategoryName in CategoryNames)
+                {
+                    Vm.Cnames.Add(CategoryName);                    
+                }
                 var products = db.ProductList.Where(m => m.UserName == username).ToList();
-                return View(products);
+                foreach(var item in products)
+                {
+                    Vm.Name = item.Name;
+                    Vm.Price = item.Price;
+                }
+                return View(Vm);
             }
             catch (Exception ex)
             {
@@ -45,8 +56,8 @@ namespace iCategory.Controllers
                 MyContext db = new MyContext();
                 var username = User.Identity.GetUserName();
                 ViewBag.Names = db.CategoryList.Where(m => m.UserName == username).Select(m => m.CategoryName).ToList();
-                var products = db.ProductList.Where(m => m.UserName == username && m.CategoryId == check).ToList();
-                return View(products);
+                //var products = db.ProductList.Where(m => m.UserName == username && m.CategoryId == check).ToList();
+                return View(/*products*/);
             }
             catch (Exception ex)
             {
