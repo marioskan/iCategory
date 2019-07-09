@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using iCategory.DAL;
 using iCategory.Models;
 using Microsoft.AspNet.Identity;
+using iCategory.ViewModels;
 
 namespace iCategory.Controllers
 {
@@ -24,15 +25,15 @@ namespace iCategory.Controllers
             {
                 MyContext db = new MyContext();
                 var username = User.Identity.GetUserName();
-                ViewBag.Names = db.CategoryList.Where(m => m.UserName == username).Select(m => m.CategoryName).ToList();
+                var categories = db.CategoryList.Where(m => m.UserName == username).ToList();
                 var products = db.ProductList.Where(m => m.UserName == username).ToList();
-                return View(products);
+                
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-            
+            return View();
         }
 
         [HttpPost]
@@ -45,8 +46,8 @@ namespace iCategory.Controllers
                 MyContext db = new MyContext();
                 var username = User.Identity.GetUserName();
                 ViewBag.Names = db.CategoryList.Where(m => m.UserName == username).Select(m => m.CategoryName).ToList();
-                var products = db.ProductList.Where(m => m.UserName == username && m.CategoryId == check).ToList();
-                return View(products);
+                //var products = db.ProductList.Where(m => m.UserName == username && m.CategoryId == check).ToList();
+                return View(/*products*/);
             }
             catch (Exception ex)
             {

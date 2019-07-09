@@ -13,8 +13,10 @@ namespace iCategory.Models
         public string Name { get; set; }
         [Required]
         public float Price { get; set; }
-        public string CategoryId { get; set; }
         public string UserName { get; set; }
         public DateTime Date { get; set; }
+
+        public int CategoryId { get; set; }
+        public Category Category { get; set; }
     }
 }

@@ -12,5 +12,12 @@ namespace iCategory.Models
         [Required]
         public string CategoryName { get; set; }
         public string UserName { get; set; }
+
+        public List<Product> Products { get; set; }
+
+        public Category()
+        {
+            Products = new List<Product>();
+        }
     }
 }

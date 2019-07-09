@@ -1,4 +1,4 @@
-﻿@model iCategory.Models.Product
+﻿@model iCategory.ViewModels.ProductViewModel
 
 @{
     ViewBag.Title= "Add Product";
@@ -20,9 +20,9 @@
             <tr>
                 <td>
                     <select name="select">
-                        @foreach(var x in ViewBag.Names)
+                        @foreach(var category in Model.CategoriesVM)
                         {
-                            <option value=@x>@x</option>
+                            <option value=@category.ID>@category.Name</option>
                         }
                     </select>
                 </td>

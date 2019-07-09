@@ -24,6 +24,11 @@ namespace iCategory.DAL
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Category>()
+                .HasMany(c => c.Products)
+                .WithRequired(p => p.Category)
+                .HasForeignKey(p => p.CategoryId)
+                .WillCascadeOnDelete(true);
         }
     }
 }
